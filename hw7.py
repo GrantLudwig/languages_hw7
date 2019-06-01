@@ -12,7 +12,7 @@ a = re.compile(r"^\$([1-9][0-9]*|0)(.[0-9]{2}$)?$")
 
 b = re.compile(r"^(3|[0,2,5,6,7,8,9]+$|[0,2,5,6,7,8,9]+3)[0,2,5,6,7,8,9]*($|1)[0,2,5,6,7,8,9]*($|4)[0,2,5,6,7,8,9]*$")
 
-c = re.compile(r"")
+c = re.compile(r"^\[(('[a-zA-Z]', )*'[a-zA-Z]')?\]$")
 
 d = re.compile(r"")
 subStr = r""   # Place what you want to substitute (used in sub)
@@ -71,9 +71,23 @@ print(b.search("Not digits"))
 
 print("----Part c tests that match:")
 print(c.search("['H', 'e', 'l', 'l', 'o']"))
+print(c.search("[]"))
+print(c.search("['H']"))
+print(c.search("['H', 'e', 'L', 'l', 'O', 'T', 'h', 'e', 'r', 'e']"))
+print(c.search("['H', 'e', 'L', 'l', 'O', 'T', 'h', 'e', 'r', 'e', 't', 'e', 's', 't']"))
 
 print("----Part c tests that do not match:")
+print(c.search("Nope"))
 print(c.search("['H', 'e', 'l', '7', 'o']"))
+print(c.search("['H', 'e', 'L', 'l', 'O', ' ', 'T', 'h', 'e', 'r', 'e']"))
+print(c.search("['H',]"))
+print(c.search("[ 'H']"))
+print(c.search("[ ]"))
+print(c.search("['H',  'e']"))
+print(c.search("['H', 'e', ':', 'l', 'o']"))
+print(c.search("['Hello', 'there']"))
+print(c.search("('l', 'l')"))
+print(c.search("['Hello', 'there'"))
 
 print("----Part d tests that match (and should change):")
 print(d.sub(subStr, "May 29, 2019"))
