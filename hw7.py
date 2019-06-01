@@ -10,12 +10,19 @@ import re
 #a = re.compile(r"^\$[1-9][0-9]*(.[0-9]{2})?")
 a = re.compile(r"^\$([1-9][0-9]*|0)(.[0-9]{2}$)?$")
 
-b = re.compile(r"^(3|[0,2,5,6,7,8,9]+$|[0,2,5,6,7,8,9]+3)[0,2,5,6,7,8,9]*($|1)[0,2,5,6,7,8,9]*($|4)[0,2,5,6,7,8,9]*$")
+b = re.compile(r"^(3|[0,2,5,6,7,8,9]+$|"
+               r"[0,2,5,6,7,8,9]+3)[0,2,5,6,7,8,9]*"
+               r"($|1)[0,2,5,6,7,8,9]*"
+               r"($|4)[0,2,5,6,7,8,9]*$")
 
 c = re.compile(r"^\[(('[a-zA-Z]', )*'[a-zA-Z]')?\]$")
 
-d = re.compile(r"")
-subStr = r""   # Place what you want to substitute (used in sub)
+#Old version
+#d = re.compile(r"^(?P<month>[A-Z][a-z]{2})\s(?P<day>[0-3]?[1-9]),?\s[0-9]{2}(?P<year>[0-9]{2})$")
+d = re.compile(r"^(?P<month>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+"
+               r"(?P<day>[0-3]?[0-9]),?\s+"
+               r"[0-9]{2}(?P<year>[0-9]{2})$")
+subStr = r"\g<day> \g<month> \g<year>"   # Place what you want to substitute (used in sub)
 
 # TESTS
 
@@ -91,7 +98,18 @@ print(c.search("['Hello', 'there'"))
 
 print("----Part d tests that match (and should change):")
 print(d.sub(subStr, "May 29, 2019"))
+print(d.sub(subStr, "May 29 1818"))
+print(d.sub(subStr, "Oct 02 1990"))
+print(d.sub(subStr, "Jan 1 0000"))
+print(d.sub(subStr, "Jan   30  5000"))
 
 print("----Part d tests that match (and should remain unchanged):")
 print(d.sub(subStr, "May 29 19"))
+print(d.sub(subStr, "May 29 19000"))
+print(d.sub(subStr, "May 29 400"))
+print(d.sub(subStr, "oct 29 2019"))
+print(d.sub(subStr, "October 26 1997"))
+print(d.sub(subStr, "Nope"))
+print(d.sub(subStr, "Oct. 26, 1997"))
+print(d.sub(subStr, "The 1 2000"))
 
