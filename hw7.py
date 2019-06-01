@@ -7,7 +7,8 @@ import re
 # You must use a single regular expression for each item.
 # For part d, also include a substitution string.
 
-a = re.compile(r"")
+#a = re.compile(r"^\$[1-9][0-9]*(.[0-9]{2})?")
+a = re.compile(r"^\$([1-9][0-9]*|0)(.[0-9]{2}$)?$")
 
 b = re.compile(r"")
 
@@ -24,9 +25,22 @@ subStr = r""   # Place what you want to substitute (used in sub)
 
 print("----Part a tests that match:")
 print(a.search("$3.56"))
+print(a.search("$0.00"))
+print(a.search("$0"))
+print(a.search("$100"))
+print(a.search("$100.10"))
+print(a.search("$1000000570.02"))
+print(a.search("$706.00"))
+print(a.search("$0.25"))
 
 print("----Part a tests that do not match:")
 print(a.search("3.56"))
+print(a.search("$3.565"))
+print(a.search("$003.00"))
+print(a.search("$3."))
+print(a.search("$0.1"))
+print(a.search("$00"))
+print(a.search("$00060"))
 
 print("----Part b tests that match:")
 print(b.search("098388719400"))
