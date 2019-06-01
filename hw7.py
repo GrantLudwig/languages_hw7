@@ -1,4 +1,8 @@
 # Homework 7
+#hw7.py v1.0
+#Grant Ludwig
+#6/4/19
+
 import re
 
 # REGULAR EXPRESSIONS
@@ -19,6 +23,7 @@ c = re.compile(r"^\[(('[a-zA-Z]', )*'[a-zA-Z]')?\]$")
 
 #Old version
 #d = re.compile(r"^(?P<month>[A-Z][a-z]{2})\s(?P<day>[0-3]?[1-9]),?\s[0-9]{2}(?P<year>[0-9]{2})$")
+
 d = re.compile(r"^(?P<month>Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+"
                r"(?P<day>[0-3]?[0-9]),?\s+"
                r"[0-9]{2}(?P<year>[0-9]{2})$")
